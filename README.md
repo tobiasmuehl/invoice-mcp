@@ -113,7 +113,7 @@ For consistent invoice generation, I recommend filling in and adding these instr
 
 **Account Name:** [Your Account Name]  
 **Account Number:** [Your Account Number]  
-**Sort Code:** [Your Sort Code]
+**Swift/BIC:** [Your Swift/BIC Code]
 
 ### Default Terms:
 

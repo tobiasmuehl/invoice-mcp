@@ -78,14 +78,12 @@ const InvoiceMainContent = ({ invoice }: { invoice: Invoice }) => {
       <View style={styles.middleColumn}>
         <Text style={styles.sectionTitle}>Billed to</Text>
         <Text style={styles.companyName}>{invoice.customer.name}</Text>
-        {invoice.customer.address && (
-          <Text style={styles.addressText}>{invoice.customer.address}</Text>
-        )}
-        {invoice.customer.city && invoice.customer.postCode && (
-          <Text style={styles.addressText}>
-            {invoice.customer.city}, {invoice.customer.postCode}
-          </Text>
-        )}
+        {invoice.customer.address &&
+          invoice.customer.address.split("\n").map((line, index) => (
+            <Text key={index} style={styles.addressText}>
+              {line}
+            </Text>
+          ))}
         {invoice.customer.email && (
           <Text style={styles.addressText}>{invoice.customer.email}</Text>
         )}
@@ -95,14 +93,12 @@ const InvoiceMainContent = ({ invoice }: { invoice: Invoice }) => {
       <View style={styles.rightColumn}>
         <Text style={styles.sectionTitle}>From</Text>
         <Text style={styles.companyName}>{invoice.business.name}</Text>
-        {invoice.business.address && (
-          <Text style={styles.addressText}>{invoice.business.address}</Text>
-        )}
-        {invoice.business.city && invoice.business.postCode && (
-          <Text style={styles.addressText}>
-            {invoice.business.city}, {invoice.business.postCode}
-          </Text>
-        )}
+        {invoice.business.address &&
+          invoice.business.address.split("\n").map((line, index) => (
+            <Text key={index} style={styles.addressText}>
+              {line}
+            </Text>
+          ))}
         {invoice.business.email && (
           <Text style={styles.addressText}>{invoice.business.email}</Text>
         )}
@@ -213,9 +209,18 @@ const InvoiceFooter = ({ invoice }: { invoice: Invoice }) => {
         <Text style={styles.thankYouText}>{invoice.notes}</Text>
       )}
 
-      {/* payment terms */}
-      {invoice.terms && (
-        <Text style={styles.paymentTerms}>{invoice.terms}</Text>
+      {/* payment terms with VAT */}
+      {(invoice.terms || invoice.customer.vatNumber) && (
+        <View>
+          {invoice.customer.vatNumber && (
+            <Text style={styles.paymentTerms}>
+              VAT {invoice.customer.vatNumber}
+            </Text>
+          )}
+          {invoice.terms && (
+            <Text style={styles.paymentTerms}>{invoice.terms}</Text>
+          )}
+        </View>
       )}
 
       {/* payment details */}
@@ -242,7 +247,7 @@ const InvoiceFooter = ({ invoice }: { invoice: Invoice }) => {
           )}
           {invoice.business.sortCode && (
             <View style={styles.paymentRow}>
-              <Text style={styles.paymentLabel}>Sort Code:</Text>
+              <Text style={styles.paymentLabel}>Swift/BIC:</Text>
               <Text style={styles.paymentValue}>
                 {invoice.business.sortCode}
               </Text>

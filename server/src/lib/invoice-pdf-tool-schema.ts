@@ -28,16 +28,7 @@ export const invoicePdfToolSchema = {
             phone: { type: "string", description: "Business phone" },
             address: {
               type: "string",
-              description: "Business address",
-            },
-            city: { type: "string", description: "Business city" },
-            country: {
-              type: "string",
-              description: "Business country",
-            },
-            postCode: {
-              type: "string",
-              description: "Business postal code",
+              description: "Business address (supports newlines for multiline addresses)",
             },
             accountName: {
               type: "string",
@@ -47,7 +38,7 @@ export const invoicePdfToolSchema = {
               type: "string",
               description: "Bank account number",
             },
-            sortCode: { type: "string", description: "Bank sort code" },
+            sortCode: { type: "string", description: "Bank Swift/BIC code" },
             logo: { type: "string", description: "Business logo URL" },
           },
           required: ["name"],
@@ -60,16 +51,11 @@ export const invoicePdfToolSchema = {
             email: { type: "string", description: "Customer email" },
             address: {
               type: "string",
-              description: "Customer address",
+              description: "Customer address (supports newlines for multiline addresses)",
             },
-            city: { type: "string", description: "Customer city" },
-            country: {
+            vatNumber: {
               type: "string",
-              description: "Customer country",
-            },
-            postCode: {
-              type: "string",
-              description: "Customer postal code",
+              description: "Customer VAT number (for EU reverse charge)",
             },
           },
           required: ["name"],
